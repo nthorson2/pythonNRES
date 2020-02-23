@@ -69,3 +69,43 @@ fStringWeightChange([1,2,3,4,5], 3)
 #%%
 #exercise 5.7
 
+def getURLInfo(stationList, startDate, endDate):
+    
+    sDate = startDate
+    eDate = endDate
+    
+    station = ('&site_no{}' * len(stationList)).format(*stationList)
+    
+    url = "https://waterdata.usgs.gov/nwis/dv?&cb_00060=on&format=rdb" + station + "&referred_module=sw&period=&begin_date=" + sDate + "&end_date=" + eDate
+    
+    print(url)
+    
+    from urllib.request import urlopen    
+    import json
+    
+    with urlopen(url) as f:
+        data = f.readlines()
+
+        json.loads(data)
+    
+    for d in data[:40]:
+        print(d)
+    
+getURLInfo(['06803495'], '2019-02-11', '2020-02-11')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
